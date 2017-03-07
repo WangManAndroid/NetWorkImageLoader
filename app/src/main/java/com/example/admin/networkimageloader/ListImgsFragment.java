@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -37,7 +36,6 @@ public class ListImgsFragment extends Fragment
 	private List<String> mlist=new ArrayList<>();
 	private ImageLoader mImageLoader;
 	private HashMap<String, List<String>> mGruopMap = new HashMap<String, List<String>>();
-	private Handler mHandler;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
