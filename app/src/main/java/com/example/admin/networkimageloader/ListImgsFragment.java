@@ -142,8 +142,6 @@ public class ListImgsFragment extends Fragment
 			  List<String> val = (List<String>) entry.getValue();
 			  mlist.addAll(val);
 		  }
-
-		  //通知Handler扫描图片完成
 		  mCursor.close();
 		  return mlist;
 	  }
