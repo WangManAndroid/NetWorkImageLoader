@@ -363,8 +363,7 @@ public class ImageLoader
 
 	}
 
-	private void refreashBitmap(final String path, final ImageView imageView,
-			Bitmap bm)
+	private void refreashBitmap(final String path, final ImageView imageView, Bitmap bm)
 	{
 		Message message = Message.obtain();
 		ImgBeanHolder holder = new ImgBeanHolder();
@@ -470,25 +469,33 @@ public class ImageLoader
 
 	/**
 	 * 加载本地图片
-	 * @param file
+	 * @param path
 	 * @param imageView
      */
-	public void  loadImage(File file,ImageView imageView){
-		addTask(buildTask(file,imageView));
 
-	}
-	public void  loadImage(String path,ImageView imageView){
+	public void loadDiskImage(String path, ImageView imageView){
 		imageView.setTag(path);
-		addTask(buildTask(new File(path),imageView));
+		Bitmap mBitmap = getBitmapFromLruCache(path);
+		if (mBitmap==null)
+		{
+			addTask(buildTask(path,imageView));
+		}else {
+			refreashBitmap(path,imageView,mBitmap);
+		}
+
 
 
 	}
-  private Runnable buildTask(final File file, final ImageView imageView){
+  private Runnable buildTask(final String file, final ImageView imageView){
+
 	  Runnable nRunnable=new Runnable() {
 		  @Override
 		  public void run() {
-			 Bitmap mBitmap= loadImageFromLocal(file,imageView);
-			  refreashBitmap(file.getPath(),imageView,mBitmap);
+			 Bitmap mBitmap= loadImageFromLocal(new File(file),imageView);
+			  if (mBitmap != null) {
+				  addBitmapToLruCache(file, mBitmap);
+				  refreashBitmap(file,imageView,mBitmap);
+			  }
 			  mSemaphoreThreadPool.release();
 		  }
 	  };

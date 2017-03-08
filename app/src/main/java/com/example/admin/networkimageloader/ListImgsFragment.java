@@ -92,7 +92,7 @@ public class ListImgsFragment extends Fragment
 			ImageView imageview = (ImageView) convertView
 					.findViewById(R.id.id_img);
 			imageview.setImageResource(R.drawable.pictures_no);
-			mImageLoader.loadImage(getItem(position), imageview);
+			mImageLoader.loadDiskImage(getItem(position), imageview);
 			return convertView;
 		}
 
